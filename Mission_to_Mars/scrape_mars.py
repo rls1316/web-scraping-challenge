@@ -70,35 +70,39 @@ def scrape_info():
     url = 'https://marshemispheres.com/'
     browser.visit(url)
 
-    hemisphere_image_urls = []
+    # HTML Object
+    html = browser.html
+
+    # Parse thru the HTML with Beautiful Soup
+    soup = BS(html, 'html.parser')
 
     # Identify list
-    Hem_Images = browser.links.find_by_partial_text('Hemisphere')
-    for item in range (len(Hem_Images)):
-        Hemisphere_Image = {}
-        
-        # Access each Hemisphere link
-        browser.links.find_by_partial_text('Hemisphere').click()
+    H_List = soup.find_all('div', class_= "item")
 
+    url = "https://marshemispheres.com/"
+
+    hemisphere_image_urls = []
+
+    for item in H_List:
+    
+        # Retrieve Title for Image and Image details
+        Title = item.find("h3").text
+        Image = item.find("a", class_= "itemLink product-item")["href"]
+    
+        # Access each Hemisphere link
+        browser.visit(url + Image)
+    
         # HTML Object
         html = browser.html
-
+    
         # Parse thru the HTML with Beautiful Soup
-        soup = BS(html, 'html.parser')
-
+        soup = BS(html, "html.parser")
+    
         # Retrieve the Full Size jpg Image URL
-        Image = soup.find('img', class_ = 'wide-image')
-        Hemisphere_Image['img_url'] = url + Image['src']
-
-        # Retrieve Title for Image
-        Title = soup.find('h2', class_ = 'title').text
-        Hemisphere_Image['title'] = Title
-
+        Image_URL = url + soup.find("img", class_= "wide-image")["src"]
+    
         # Append Data
-        hemisphere_image_urls.append(Hemisphere_Image)
-        
-        # Navigate back to main window
-        browser.links.find_by_partial_text('Back').click()
+        hemisphere_image_urls.append({"title" : Title, "img_url" : Image_URL})
 
     # Store Data in Dictionary
     mars_data = {
