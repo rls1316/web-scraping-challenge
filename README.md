@@ -25,4 +25,4 @@ Complete your initial scraping using Jupyter Notebook, BeautifulSoup, Pandas, an
 ### Step 2 - MongoDB and Flask Application
 Use MongoDB with Flask templating to create a new HTML page that displays all of the information that was scraped from the URLs above.
 
-![Mission_to_Mars_app_screenshot](https://user-images.githubusercontent.com/80739270/130310319-229ed00e-e1ec-4ced-92da-2ec15e782518.png)
+![Mission_to_Mars_app_screenshot](https://user-images.githubusercontent.com/80739270/130313150-c696813c-468d-4a48-9b85-fd986fcda30c.png)
